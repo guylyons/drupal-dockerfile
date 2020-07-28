@@ -2,6 +2,8 @@
 FROM php:7.3-apache-stretch
 # TODO switch to buster once https://github.com/docker-library/php/issues/865 is resolved in a clean way (either in the PHP image or in PHP itself)
 
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
 # install the PHP extensions we need
 RUN set -eux; \
 	\
