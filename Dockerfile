@@ -60,6 +60,10 @@ RUN { \
 		echo 'opcache.fast_shutdown=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
+
+RUN { \
+echo 'memory_limt = 2048M'; } > /usr/local/etc/php/php.ini
+
 WORKDIR /var/www/html
 
 # https://www.drupal.org/node/3060/release
