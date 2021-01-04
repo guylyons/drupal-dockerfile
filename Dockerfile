@@ -67,7 +67,7 @@ echo 'memory_limt = 2048M'; } > /usr/local/etc/php/php.ini
 WORKDIR /var/www/html
 
 # https://www.drupal.org/node/3060/release
-ENV DRUPAL_VERSION 8.9.11
+ENV DRUPAL_VERSION 8.8.8
 ENV DRUPAL_MD5 c62224855c4c30e2970e9b1ef32bc53b
 
 RUN set -eux; \
@@ -102,7 +102,7 @@ RUN set -x \
     && apt-get update \
     && apt-get install -y libldap2-dev \
     && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+    # && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
     && docker-php-ext-install ldap \
     && apt-get purge -y --auto-remove libldap2-dev
 RUN a2enmod rewrite
