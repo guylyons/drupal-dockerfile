@@ -67,8 +67,8 @@ echo 'memory_limt = 2048M'; } > /usr/local/etc/php/php.ini
 WORKDIR /var/www/html
 
 # https://www.drupal.org/node/3060/release
-ENV DRUPAL_VERSION 8.8.8
-ENV DRUPAL_MD5 c8265f0228ca0306de7b2755e4731a3d
+ENV DRUPAL_VERSION 8.8.12
+ENV DRUPAL_MD5 0ec8f449353645f0401a73494f3f32a7
 
 RUN set -eux; \
 	curl -fSL "https://ftp.drupal.org/files/projects/drupal-${DRUPAL_VERSION}.tar.gz" -o drupal.tar.gz; \
@@ -85,7 +85,7 @@ RUN apt-get update && apt-get install -y mariadb-client curl git vim \
 
 # Install Composer
 RUN echo "allow_url_fopen = On" > /usr/local/etc/php/conf.d/drupal-01.ini
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -- --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -- --filename=composer --version=1.10.19
 
 # Create directories for Drupal
 RUN mkdir -p /tmp/drupal && chown www-data:www-data /tmp/drupal
@@ -98,20 +98,20 @@ ADD apache.conf /etc/apache2/sites-enabled/000-default.conf
 ADD bashrc.sh /var/www/.bashrc
 ADD drushrc.php /etc/drush/drushrc.php
 
-RUN set -x \
-    && apt-get update \
-    && apt-get install -y libldap2-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    # && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
-    && docker-php-ext-install ldap \
-    && apt-get purge -y --auto-remove libldap2-dev
+# RUN set -x \
+#     && apt-get update \
+#     && apt-get install -y libldap2-dev \
+#     && rm -rf /var/lib/apt/lists/* \
+#     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+#     && docker-php-ext-install ldap \
+#     && apt-get purge -y --auto-remove libldap2-dev
 RUN a2enmod rewrite
 
 
-RUN \
-        pecl install xdebug; \
-        docker-php-ext-enable xdebug; \
-        echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-        echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-        echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-	echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+# RUN \
+#         pecl install xdebug; \
+#         docker-php-ext-enable xdebug; \
+#         echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+#         echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+#         echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+# 	echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
