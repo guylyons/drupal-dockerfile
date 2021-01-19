@@ -62,7 +62,7 @@ RUN { \
 
 
 RUN { \
-echo 'memory_limt = 2048M'; } > /usr/local/etc/php/php.ini
+echo 'memory_limt = 512M'; } > /usr/local/etc/php/php.ini
 
 WORKDIR /var/www/html
 
