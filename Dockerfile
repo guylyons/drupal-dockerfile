@@ -62,13 +62,13 @@ RUN { \
 
 
 RUN { \
-echo 'memory_limit = 512M'; } > /usr/local/etc/php/php.ini
+echo 'memory_limit = -1'; } > /usr/local/etc/php/php.ini
 
 WORKDIR /var/www/html
 
 # https://www.drupal.org/node/3060/release
-ENV DRUPAL_VERSION 8.9.13
-ENV DRUPAL_MD5 75f7a83b14a1e4ec13ca9827f71ccd1c
+ENV DRUPAL_VERSION 8.9.17
+ENV DRUPAL_MD5 bb344910d8ce6bd494fc0c7d7f54049d
 
 RUN set -eux; \
 	curl -fSL "https://ftp.drupal.org/files/projects/drupal-${DRUPAL_VERSION}.tar.gz" -o drupal.tar.gz; \
@@ -100,11 +100,5 @@ ADD drushrc.php /etc/drush/drushrc.php
 
 RUN \
         pecl install xdebug; \
-        docker-php-ext-enable xdebug; \
-        echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-        echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-        echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-	echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-	echo "xdebug.client_host=docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-	echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        docker-php-ext-enable xdebug;
 
