@@ -1,5 +1,5 @@
 # from https://www.drupal.org/docs/8/system-requirements/drupal-8-php-requirements
-FROM php:7.4.15-apache-stretch
+FROM php:apache-stretch
 # TODO switch to buster once https://github.com/docker-library/php/issues/865 is resolved in a clean way (either in the PHP image or in PHP itself)
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
@@ -85,7 +85,7 @@ RUN apt-get update && apt-get install -y mariadb-client curl git vim \
 
 # Install Composer
 RUN echo "allow_url_fopen = On" > /usr/local/etc/php/conf.d/drupal-01.ini
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -- --filename=composer --version=1.10.19
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -- --filename=composer --version=2.0.12
 
 # Create directories for Drupal
 RUN mkdir -p /tmp/drupal && chown www-data:www-data /tmp/drupal
@@ -104,5 +104,7 @@ RUN \
         echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
         echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
         echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-	echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+	echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+	echo "xdebug.client_host=docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+	echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
