@@ -1,5 +1,5 @@
 # from https://www.drupal.org/docs/8/system-requirements/drupal-8-php-requirements
-FROM php:apache-stretch
+FROM php:apache-bullseye
 # TODO switch to buster once https://github.com/docker-library/php/issues/865 is resolved in a clean way (either in the PHP image or in PHP itself)
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
@@ -20,12 +20,6 @@ RUN set -eux; \
 		libpng-dev \
 		libpq-dev \
 		libzip-dev \
-	; \
-	\
-	docker-php-ext-configure gd \
-		--with-freetype-dir=/usr \
-		--with-jpeg-dir=/usr \
-		--with-png-dir=/usr \
 	; \
 	\
 	docker-php-ext-install -j "$(nproc)" \
@@ -67,8 +61,8 @@ echo 'memory_limit = -1'; } > /usr/local/etc/php/php.ini
 WORKDIR /var/www/html
 
 # https://www.drupal.org/node/3060/release
-ENV DRUPAL_VERSION 8.9.17
-ENV DRUPAL_MD5 bb344910d8ce6bd494fc0c7d7f54049d
+ENV DRUPAL_VERSION 9.2.8
+ENV DRUPAL_MD5 911a8b35d60b03d1d481c263024d9526
 
 RUN set -eux; \
 	curl -fSL "https://ftp.drupal.org/files/projects/drupal-${DRUPAL_VERSION}.tar.gz" -o drupal.tar.gz; \
