@@ -61,8 +61,8 @@ echo 'memory_limit = -1'; } > /usr/local/etc/php/php.ini
 WORKDIR /var/www/html
 
 # https://www.drupal.org/node/3060/release
-ENV DRUPAL_VERSION 9.2.8
-ENV DRUPAL_MD5 911a8b35d60b03d1d481c263024d9526
+ENV DRUPAL_VERSION 9.3.2
+ENV DRUPAL_MD5 8b6f625d23c88caf413a48ddf6c01150
 
 RUN set -eux; \
 	curl -fSL "https://ftp.drupal.org/files/projects/drupal-${DRUPAL_VERSION}.tar.gz" -o drupal.tar.gz; \
