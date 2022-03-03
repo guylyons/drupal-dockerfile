@@ -24,6 +24,8 @@ RUN set -eux; \
 		--with-freetype \
 		--with-jpeg=/usr \
 		--with-webp \
+                --with-freetype-dir=/usr/include/
+                --with-jpeg-dir=/usr/include/
 	; \
 	\
 	docker-php-ext-install -j "$(nproc)" \
