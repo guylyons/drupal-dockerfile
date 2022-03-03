@@ -1,6 +1,10 @@
 # from https://www.drupal.org/docs/system-requirements/php-requirements
 FROM php:8.0-apache-bullseye
 
+WORKDIR /opt/drupal
+
+RUN apt update && apt-get install -y imagemagick
+
 # install the PHP extensions we need
 RUN set -eux; \
 	\
@@ -21,8 +25,8 @@ RUN set -eux; \
 	; \
 	\
 	docker-php-ext-configure gd \
-		--with-freetype \
-		--with-jpeg=/usr \
+		--with-freetype=/usr/include \
+		--with-jpeg=/usr/include \
 		--with-webp \
 	; \
 	\
