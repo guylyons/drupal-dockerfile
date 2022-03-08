@@ -1,10 +1,4 @@
 # Readme
 
-Add this to your docker-compose.yml:
-
-	XDEBUG_CONFIG: remote_host=host.docker.internal
-
-## Some notes
-
-- Composer has to be version 1 to work correctly with Drupal 8.
-- The database used here as default is 'une' and not 'unedev' as in the Vagrant config.
+Drupal 8/9 image that is based off of the official Drupal image on Docker Hub. Slightly modified
+to allow xdebug and a few other needed features for my development environents.
