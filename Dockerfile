@@ -1,5 +1,5 @@
 # from https://www.drupal.org/docs/system-requirements/php-requirements
-FROM php:7.4-apache-bullseye
+FROM php:8.0.18-apache-bullseye
 
 WORKDIR /opt/drupal
 
