@@ -7,6 +7,9 @@ cd 7.4
 cd ../9
 ./build.sh
 
+cd ../10
+./build.sh
+
 cd ../latest
 ./build.sh
 
